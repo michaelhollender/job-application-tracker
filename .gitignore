@@ -1,0 +1,28 @@
+# Local env (never commit)
+# Java / Spring
+target/
+*.log
+*.class
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Node / React
+node_modules/
+dist/
+build/
+
+# Environment files
+.env
+.env.*
+application-local.yml
+application-dev.yml
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+

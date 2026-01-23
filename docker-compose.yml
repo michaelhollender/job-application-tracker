@@ -1,0 +1,59 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: docker/devcontainer/Dockerfile
+    container_name: ${PROJECT_NAME:-job-application-tracker}-dev
+    env_file:
+      - .env
+    working_dir: /workspace
+    volumes:
+      # Mount your repo into the container
+      - .:/workspace:cached
+
+      # SSH agent forwarding: mount the agent socket from host into container
+      # The SSH_AUTH_SOCK value is provided by your host environment.
+      # On Linux/macOS this usually works out of the box if ssh-agent is running.
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+
+      # (Optional) Maven cache for faster builds
+      - m2_cache:/home/ubuntu/.m2
+
+      # (Optional) Node cache for faster installs
+      - npm_cache:/home/ubuntu/.npm
+
+    environment:
+      # Point SSH inside container at the mounted agent socket
+      SSH_AUTH_SOCK: /ssh-agent
+
+    depends_on:
+      - db
+
+    # Helpful for interactive work
+    tty: true
+    stdin_open: true
+
+    # If you want to expose API/Web ports to host even when run inside dev container
+    ports:
+      - "${API_PORT:-8080}:8080"
+      - "${WEB_PORT:-5173}:5173"
+
+  db:
+    image: postgres:16
+    container_name: ${PROJECT_NAME:-job-application-tracker}-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
+  m2_cache:
+  npm_cache:

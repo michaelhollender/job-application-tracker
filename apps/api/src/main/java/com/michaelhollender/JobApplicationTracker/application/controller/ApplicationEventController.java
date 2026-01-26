@@ -1,7 +1,5 @@
 package com.michaelhollender.JobApplicationTracker.application.controller;
 
-import com.michaelhollender.JobApplicationTracker.application.service.ApplicationService;
-import com.michaelhollender.JobApplicationTracker.application.dto.CreateApplicationRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,23 +7,30 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class ApplicationEventController {
 
-    private final ApplicationService applicationService;
-
-    public ApplicationEventController(ApplicationService applicationService) {
-        this.applicationService = applicationService;
-    }
-
-    @PostMapping("/applicaitons/{id}/events")
+    @PostMapping("/applications/{id}/events")
     public  ResponseEntity<String> createApplicationEvent(@PathVariable("id") Long id,
-                                                          @RequestBody CreateApplicationRequest request) {
-        // NUDGE: this should call an "add event" service method + use an event request DTO.
-        // Leaving your existing service call out because it's the wrong operation.
-        return  ResponseEntity.ok("TODO: create event for application " + id);
+                                                          @RequestBody Object request) {
+        if (id == null || id <= 0) {
+            return ResponseEntity.badRequest().body("Invalid application id");
+        }
+
+        // 4.1 Stub: resource existence check will be done in service later
+        // For now, keep a placeholder 404 path you can remove once service exists:
+        // return ResponseEntity.status(404).body("Application not found")
+
+        return ResponseEntity.ok("TODO: create event for application " + id);
     }
 
     @GetMapping("/applications/{id}/events")
     public ResponseEntity<String> getApplicationEvents(@PathVariable("id") Long id) {
-        // NUDGE: this should return event DTOs for the application.
+        if (id == null || id <= 0) {
+            return ResponseEntity.badRequest().body("Invalid application id");
+        }
+
+        // 4.1 Stub: resource existence check will be done in service layer
+        // For now, keep a placeholder 404 path you can remove once service exists:
+        // return ResponseEntity.status(404).body("Application not found")
+
         return ResponseEntity.ok("TODO: get events for application " + id);
     }
 }

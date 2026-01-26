@@ -1,4 +1,9 @@
 package com.michaelhollender.JobApplicationTracker.application.dto;
 
-public class UpdateApplicationRequest {
-}
+public record UpdateApplicationRequest(
+
+        String status,
+        String location,
+        String jobUrl,
+        String notes
+) {}

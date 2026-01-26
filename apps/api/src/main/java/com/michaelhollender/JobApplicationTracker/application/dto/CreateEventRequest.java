@@ -1,37 +1,14 @@
 package com.michaelhollender.JobApplicationTracker.application.dto;
 
-import java.util.Date;
+import jakarta.validation.constraints.NotBlank;
+import java.time.Instant;
 
-public class CreateEventRequest {
+public record CreateEventRequest(
 
-    String type;
-    Date eventAt;
-    String detail;
+        @NotBlank
+        String type, // NOTE (STATUS_CHANGE is internal-only in v1)
 
-    public CreateEventRequest() {
-    }
+        Instant eventAt, // optional; default to now if null
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getEventAt() {
-        return eventAt;
-    }
-
-    public void setEventAt(Date eventAt) {
-        this.eventAt = eventAt;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-}
+        String detail
+) {}

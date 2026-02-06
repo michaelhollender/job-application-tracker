@@ -1,4 +1,6 @@
 package com.michaelhollender.JobApplicationTracker.application.model;
 
-public class EventType {
+public enum EventType {
+    NOTE,
+    STATUS_CHANGE
 }

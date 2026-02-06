@@ -1,4 +1,13 @@
 package com.michaelhollender.JobApplicationTracker.application.model;
 
-public class ApplicationEvent {
-}
+import java.time.Instant;
+import java.util.UUID;
+
+public record ApplicationEvent(
+        UUID id,
+        UUID applicationId,
+        EventType type,
+        Instant eventAt,
+        String detail,
+        Instant createdAt
+) {}

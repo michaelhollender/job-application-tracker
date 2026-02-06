@@ -1,4 +1,9 @@
 package com.michaelhollender.JobApplicationTracker.application.model;
 
-public class ApplicationStatus {
+public enum ApplicationStatus {
+    SAVED,
+    APPLIED,
+    INTERVIEW,
+    OFFER,
+    REJECTED
 }

@@ -53,7 +53,7 @@ public class ApplicationController {
             return ResponseEntity.badRequest().body("Invalid application id");
         }
         if (request == null) {
-            return ResponseEntity.badRequest().body("Invalid request body")
+           return ResponseEntity.badRequest().body("Invalid request body");
         }
 
         // 4.1 stub:
